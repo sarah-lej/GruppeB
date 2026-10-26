@@ -1,120 +1,119 @@
 
-/* Grundeinstellungen */
-* {
-    box-sizing: border-box;
+/* Farbpalette */
+:root {
+    --primary: #6c63ff;
+    --primary-hover: #554be8;
+    --background: #f4f3ff;
+    --text: #292747;
+    --border: #e4e2f3;
+    --white: #ffffff;
 }
 
+/* Gesamte Seite */
 body {
     margin: 0;
     padding: 40px 20px;
     font-family: Arial, sans-serif;
-    background-color: #f3f5f9;
-    color: #263247;
+    background-color: var(--background);
+    color: var(--text);
 }
 
-/* Bereich der To-do-Liste */
+/* Hauptbereich */
 .col-9 {
     width: 100%;
-    max-width: 900px;
-    margin: 40px auto;
+    max-width: 850px;
+    margin: 0 auto;
 }
 
 /* Weiße Karte */
 .p-3.bg-white.rounded.shadow-sm {
-    background-color: #ffffff;
-    padding: 32px;
-    border-radius: 16px;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+    padding: 32px !important;
+    background-color: var(--white) !important;
+    border: 1px solid var(--border);
+    border-radius: 20px !important;
+    box-shadow: 0 10px 30px rgba(55, 45, 120, 0.10) !important;
 }
 
 /* Überschrift */
 h1 {
-    margin-top: 0;
-    margin-bottom: 24px;
+    margin-bottom: 25px;
     font-size: 28px;
-    line-height: 1.4;
-    color: #1e293b;
+    color: var(--text);
 }
 
-/* Bereich zum Erstellen einer Aufgabe */
-.mb-4 {
-    margin-bottom: 24px;
-}
-
-/* Texteingabefeld */
-#newPost {
+/* Eingabefeld: ID aus deinem HTML */
+#newToDo {
     display: block;
+    box-sizing: border-box;
     width: 100%;
-    min-height: 120px;
-    padding: 14px;
-    margin-bottom: 16px;
-    border: 1px solid #cbd5e1;
-    border-radius: 10px;
+    min-height: 100px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background-color: #fcfbff;
     font-family: inherit;
     font-size: 16px;
-    line-height: 1.5;
-    color: #263247;
-    background-color: #ffffff;
+    color: var(--text);
     resize: vertical;
-    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-/* Wenn man in das Feld klickt */
-#newPost:focus {
+#newToDo:focus {
     outline: none;
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.15);
 }
 
-/* Platzhaltertext */
-#newPost::placeholder {
-    color: #94a3b8;
-}
-
-/* Button */
-#btnCreatePost {
-    display: inline-block;
-    padding: 13px 22px;
+/* Button: ID aus deinem HTML */
+#btnCreateToDo {
+    padding: 13px 24px;
     border: none;
-    border-radius: 9px;
-    background-color: #4f46e5;
-    color: #ffffff;
+    border-radius: 10px;
+    background-color: var(--primary);
+    color: var(--white);
     font-size: 16px;
-    font-weight: 600;
+    font-weight: bold;
     cursor: pointer;
     transition: background-color 0.2s, transform 0.2s;
 }
 
-/* Wenn die Maus über dem Button ist */
-#btnCreatePost:hover {
-    background-color: #4338ca;
-    transform: translateY(-1px);
+#btnCreateToDo:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
 }
 
-/* Wenn man den Button anklickt */
-#btnCreatePost:active {
-    transform: translateY(0);
+/* Liste der Aufgaben */
+#taskList {
+    margin-top: 24px;
+    padding-left: 0;
+    list-style: none;
 }
 
-/* Darstellung auf dem Handy */
+#taskList li {
+    margin-bottom: 10px;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background-color: #f9f8ff;
+    overflow-wrap: anywhere;
+}
+
+/* Smartphone */
 @media (max-width: 600px) {
     body {
-        padding: 16px;
-    }
-
-    .col-9 {
-        margin: 16px auto;
+        padding: 20px 12px;
     }
 
     .p-3.bg-white.rounded.shadow-sm {
-        padding: 20px;
+        padding: 20px !important;
     }
 
     h1 {
         font-size: 23px;
     }
 
-    #btnCreatePost {
+    #btnCreateToDo {
         width: 100%;
     }
 }
+
