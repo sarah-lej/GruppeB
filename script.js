@@ -4,43 +4,36 @@ var PRIORITY_COLORS = {
     mittel: "orange",
     schwer: "red"
 };
-var tasks = [];
-//<<<<<<< Updated upstream
-//=======
+var tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
 var input = document.querySelector("#taskInput");
 var button = document.querySelector("#addButton");
 var list = document.querySelector("#taskList");
-//>>>>>>> Stashed changes
+function saveTasks() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
 function renderTasks() {
     list.innerHTML = "";
     tasks.forEach(function (task) {
         var _a;
         var li = document.createElement("li");
-        //<<<<<<< Updated upstream
-        //=======
-        //>>>>>>> Stashed changes
         var checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.checked = task.completed;
         checkbox.addEventListener("change", function () {
             task.completed = checkbox.checked;
+            saveTasks();
             renderTasks();
         });
-        //=======
-        // Text-Container für den Titel
         var titleSpan = document.createElement("span");
         titleSpan.textContent = task.title;
-        //>>>>>>> Stashed changes
         if (task.completed) {
             titleSpan.style.textDecoration = "line-through";
             titleSpan.style.color = "gray";
         }
         li.appendChild(checkbox);
         li.appendChild(titleSpan);
-        // Priorität: Dropdown mit Farbzuordnung
         var currentPriority = (_a = task.priority) !== null && _a !== void 0 ? _a : "leicht";
         var prioritySelect = document.createElement("select");
-        // NEU: Beschriftung für Barrierefreiheit und Tooltip
         prioritySelect.setAttribute("aria-label", "Priorität der Aufgabe");
         prioritySelect.title = "Priorität auswählen";
         PRIORITIES.forEach(function (p) {
@@ -55,6 +48,7 @@ function renderTasks() {
         li.style.borderLeft = "6px solid ".concat(PRIORITY_COLORS[currentPriority]);
         prioritySelect.addEventListener("change", function () {
             task.priority = prioritySelect.value;
+            saveTasks();
             renderTasks();
         });
         li.appendChild(prioritySelect);
@@ -68,22 +62,22 @@ function addTask() {
     var task = {
         id: Date.now(),
         title: title,
-        completed: false
+        completed: false,
+        priority: "leicht"
     };
-    // NEU: Neue Aufgaben starten mit der Standard-Priorität "leicht"
-    task.priority = "leicht";
     tasks.push(task);
-    //<<<<<<< Updated upstream
-    //=======
-    //>>>>>>> Stashed changes
+    saveTasks();
     renderTasks();
     input.value = "";
 }
 button.addEventListener("click", addTask);
-var categories = [];
+var categories = JSON.parse(localStorage.getItem("categories") || "[]");
 var categoryInput = document.querySelector("#newCategory");
 var categoryButton = document.querySelector("#btnCreateCategory");
 var categoryList = document.querySelector("#categoryList");
+function saveCategories() {
+    localStorage.setItem("categories", JSON.stringify(categories));
+}
 function renderCategories() {
     categoryList.innerHTML = "";
     categories.forEach(function (category) {
@@ -101,7 +95,10 @@ function addCategory() {
         name: name
     };
     categories.push(category);
+    saveCategories();
     renderCategories();
     categoryInput.value = "";
 }
 categoryButton.addEventListener("click", addCategory);
+renderTasks();
+renderCategories();

@@ -1,14 +1,12 @@
+
 interface Task {
     id: number;
     title: string;
     completed: boolean;
+    priority?: Priority;
 }
 
 type Priority = "leicht" | "mittel" | "schwer";
-
-interface Task {
-    priority?: Priority;
-}
 
 const PRIORITIES: Priority[] = ["leicht", "mittel", "schwer"];
 
@@ -18,43 +16,37 @@ const PRIORITY_COLORS: Record<Priority, string> = {
     schwer: "red"
 };
 
-const tasks: Task[] = [];
-//<<<<<<< Updated upstream
+const tasks: Task[] = JSON.parse(
+    localStorage.getItem("tasks") || "[]"
+);
 
-//=======
 const input = document.querySelector<HTMLInputElement>("#taskInput")!;
 const button = document.querySelector<HTMLButtonElement>("#addButton")!;
 const list = document.querySelector<HTMLUListElement>("#taskList")!;
 
+function saveTasks(): void {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
 
-//>>>>>>> Stashed changes
 function renderTasks(): void {
     list.innerHTML = "";
 
     tasks.forEach(task => {
         const li = document.createElement("li");
 
-        //<<<<<<< Updated upstream
-        //=======
-
-        //>>>>>>> Stashed changes
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.checked = task.completed;
 
         checkbox.addEventListener("change", () => {
             task.completed = checkbox.checked;
+            saveTasks();
             renderTasks();
         });
 
-
-        //=======
-        // Text-Container für den Titel
         const titleSpan = document.createElement("span");
         titleSpan.textContent = task.title;
 
-
-        //>>>>>>> Stashed changes
         if (task.completed) {
             titleSpan.style.textDecoration = "line-through";
             titleSpan.style.color = "gray";
@@ -62,13 +54,13 @@ function renderTasks(): void {
 
         li.appendChild(checkbox);
         li.appendChild(titleSpan);
-        // Priorität: Dropdown mit Farbzuordnung
+
         const currentPriority: Priority = task.priority ?? "leicht";
 
         const prioritySelect = document.createElement("select");
-        // NEU: Beschriftung für Barrierefreiheit und Tooltip
         prioritySelect.setAttribute("aria-label", "Priorität der Aufgabe");
         prioritySelect.title = "Priorität auswählen";
+
         PRIORITIES.forEach(p => {
             const option = document.createElement("option");
             option.value = p;
@@ -83,6 +75,7 @@ function renderTasks(): void {
 
         prioritySelect.addEventListener("change", () => {
             task.priority = prioritySelect.value as Priority;
+            saveTasks();
             renderTasks();
         });
 
@@ -99,17 +92,12 @@ function addTask(): void {
     const task: Task = {
         id: Date.now(),
         title: title,
-        completed: false
+        completed: false,
+        priority: "leicht"
     };
 
-    // NEU: Neue Aufgaben starten mit der Standard-Priorität "leicht"
-    task.priority = "leicht";
-
     tasks.push(task);
-    //<<<<<<< Updated upstream
-    //=======
-
-    //>>>>>>> Stashed changes
+    saveTasks();
     renderTasks();
 
     input.value = "";
@@ -117,17 +105,22 @@ function addTask(): void {
 
 button.addEventListener("click", addTask);
 
-
 interface Category {
     id: number;
     name: string;
 }
 
-const categories: Category[] = [];
+const categories: Category[] = JSON.parse(
+    localStorage.getItem("categories") || "[]"
+);
 
 const categoryInput = document.querySelector<HTMLInputElement>("#newCategory")!;
 const categoryButton = document.querySelector<HTMLButtonElement>("#btnCreateCategory")!;
 const categoryList = document.querySelector<HTMLUListElement>("#categoryList")!;
+
+function saveCategories(): void {
+    localStorage.setItem("categories", JSON.stringify(categories));
+}
 
 function renderCategories(): void {
     categoryList.innerHTML = "";
@@ -135,7 +128,6 @@ function renderCategories(): void {
     categories.forEach(category => {
         const li = document.createElement("li");
         li.textContent = category.name;
-
         categoryList.appendChild(li);
     });
 }
@@ -151,9 +143,13 @@ function addCategory(): void {
     };
 
     categories.push(category);
+    saveCategories();
     renderCategories();
 
     categoryInput.value = "";
 }
 
 categoryButton.addEventListener("click", addCategory);
+
+renderTasks();
+renderCategories();
