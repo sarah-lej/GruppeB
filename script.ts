@@ -1,4 +1,3 @@
-
 interface Task {
     id: number;
     title: string;
@@ -20,6 +19,9 @@ const tasks: Task[] = JSON.parse(
     localStorage.getItem("tasks") || "[]"
 );
 
+// merkt sich, welche Aufgabe gerade bearbeitet wird (null = keine)
+let editingTaskId: number | null = null;
+
 const input = document.querySelector<HTMLInputElement>("#taskInput")!;
 const button = document.querySelector<HTMLButtonElement>("#addButton")!;
 const list = document.querySelector<HTMLUListElement>("#taskList")!;
@@ -33,6 +35,9 @@ function renderTasks(): void {
 
     tasks.forEach(task => {
         const li = document.createElement("li");
+        li.style.display = "flex";
+        li.style.alignItems = "center";
+        li.style.gap = "8px";
 
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
@@ -44,17 +49,64 @@ function renderTasks(): void {
             renderTasks();
         });
 
-        const titleSpan = document.createElement("span");
-        titleSpan.textContent = task.title;
+        li.appendChild(checkbox);
 
-        if (task.completed) {
-            titleSpan.style.textDecoration = "line-through";
-            titleSpan.style.color = "gray";
+        let editInput: HTMLInputElement | null = null;
+
+        if (editingTaskId === task.id) {
+            // Bearbeitungsmodus: Inputfeld + Speichern-Button
+            const currentInput = document.createElement("input");
+            currentInput.type = "text";
+            currentInput.value = task.title;
+            currentInput.style.flex = "1";
+            editInput = currentInput;
+
+            const saveEdit = (): void => {
+                const newTitle = currentInput.value.trim();
+                if (newTitle === "") return;
+                task.title = newTitle;
+                editingTaskId = null;
+                saveTasks();
+                renderTasks();
+            };
+
+            currentInput.addEventListener("keydown", (e) => {
+                if (e.key === "Enter") saveEdit();
+                if (e.key === "Escape") {
+                    editingTaskId = null;
+                    renderTasks();
+                }
+            });
+
+            const saveButton = document.createElement("button");
+            saveButton.textContent = "Speichern";
+            saveButton.addEventListener("click", saveEdit);
+
+            li.appendChild(currentInput);
+            li.appendChild(saveButton);
+        } else {
+            // Normalmodus: Titel + Bearbeiten-Button
+            const titleSpan = document.createElement("span");
+            titleSpan.textContent = task.title;
+            titleSpan.style.flex = "1";
+
+            if (task.completed) {
+                titleSpan.style.textDecoration = "line-through";
+                titleSpan.style.color = "gray";
+            }
+
+            const editButton = document.createElement("button");
+            editButton.textContent = "Bearbeiten";
+            editButton.addEventListener("click", () => {
+                editingTaskId = task.id;
+                renderTasks();
+            });
+
+            li.appendChild(titleSpan);
+            li.appendChild(editButton);
         }
 
-        li.appendChild(checkbox);
-        li.appendChild(titleSpan);
-
+        // Priorität: Dropdown mit Farbzuordnung
         const currentPriority: Priority = task.priority ?? "leicht";
 
         const prioritySelect = document.createElement("select");
@@ -71,6 +123,7 @@ function renderTasks(): void {
         prioritySelect.value = currentPriority;
         prioritySelect.style.backgroundColor = PRIORITY_COLORS[currentPriority];
         prioritySelect.style.color = "white";
+        prioritySelect.style.marginLeft = "auto";
         li.style.borderLeft = `6px solid ${PRIORITY_COLORS[currentPriority]}`;
 
         prioritySelect.addEventListener("change", () => {
@@ -81,6 +134,9 @@ function renderTasks(): void {
 
         li.appendChild(prioritySelect);
         list.appendChild(li);
+
+        // Fokus erst setzen, wenn das li im DOM hängt
+        if (editInput) editInput.focus();
     });
 }
 
