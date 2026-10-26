@@ -5,29 +5,29 @@ interface Task {
 }
 
 const tasks: Task[] = [];
-<<<<<<< Updated upstream
+//<<<<<<< Updated upstream
 
 const input = document.querySelector<HTMLTextAreaElement>("#newToDo")!;
 const button = document.querySelector<HTMLButtonElement>("#btnCreateToDo")!;
 const list = document.querySelector<HTMLUListElement>("#taskList")!;
 
-=======
+//=======
 const input = document.querySelector<HTMLInputElement>("#taskInput")!;
 const button = document.querySelector<HTMLButtonElement>("#addButton")!;
 const list = document.querySelector<HTMLUListElement>("#taskList")!;
 
 
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
 function renderTasks(): void {
     list.innerHTML = "";
 
     tasks.forEach(task => {
         const li = document.createElement("li");
 
-<<<<<<< Updated upstream
-=======
+        //<<<<<<< Updated upstream
+        //=======
 
->>>>>>> Stashed changes
+        //>>>>>>> Stashed changes
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.checked = task.completed;
@@ -37,17 +37,17 @@ function renderTasks(): void {
             renderTasks();
         });
 
-<<<<<<< Updated upstream
+        //<<<<<<< Updated upstream
         const titleSpan = document.createElement("span");
         titleSpan.textContent = task.title;
 
-=======
+        //=======
         // Text-Container für den Titel
         const titleSpan = document.createElement("span");
         titleSpan.textContent = task.title;
 
 
->>>>>>> Stashed changes
+        //>>>>>>> Stashed changes
         if (task.completed) {
             titleSpan.style.textDecoration = "line-through";
             titleSpan.style.color = "gray";
@@ -71,10 +71,10 @@ function addTask(): void {
     };
 
     tasks.push(task);
-<<<<<<< Updated upstream
-=======
+    //<<<<<<< Updated upstream
+    //=======
 
->>>>>>> Stashed changes
+    //>>>>>>> Stashed changes
     renderTasks();
 
     input.value = "";
