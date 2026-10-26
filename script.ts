@@ -74,3 +74,44 @@ function addTask(): void {
 }
 
 button.addEventListener("click", addTask);
+
+
+interface Category {
+    id: number;
+    name: string;
+}
+
+const categories: Category[] = [];
+
+const categoryInput = document.querySelector<HTMLInputElement>("#newCategory")!;
+const categoryButton = document.querySelector<HTMLButtonElement>("#btnCreateCategory")!;
+const categoryList = document.querySelector<HTMLUListElement>("#categoryList")!;
+
+function renderCategories(): void {
+    categoryList.innerHTML = "";
+
+    categories.forEach(category => {
+        const li = document.createElement("li");
+        li.textContent = category.name;
+
+        categoryList.appendChild(li);
+    });
+}
+
+function addCategory(): void {
+    const name = categoryInput.value.trim();
+
+    if (name === "") return;
+
+    const category: Category = {
+        id: Date.now(),
+        name: name
+    };
+
+    categories.push(category);
+    renderCategories();
+
+    categoryInput.value = "";
+}
+
+categoryButton.addEventListener("click", addCategory);
