@@ -5,17 +5,16 @@ interface Task {
 }
 
 const tasks: Task[] = [];
-const input = document.querySelector<HTMLInputElement>("#taskInput")!;
-const button = document.querySelector<HTMLButtonElement>("#addButton")!;
-const list = document.querySelector<HTMLUListElement>("#taskList")!;
 
+const input = document.querySelector<HTMLTextAreaElement>("#newPost")!;
+const button = document.querySelector<HTMLButtonElement>("#btnCreatePost")!;
+const list = document.querySelector<HTMLUListElement>("#taskList")!;
 
 function renderTasks(): void {
     list.innerHTML = "";
 
     tasks.forEach(task => {
         const li = document.createElement("li");
-
 
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
@@ -26,10 +25,8 @@ function renderTasks(): void {
             renderTasks();
         });
 
-        // Text-Container für den Titel
         const titleSpan = document.createElement("span");
         titleSpan.textContent = task.title;
-
 
         if (task.completed) {
             titleSpan.style.textDecoration = "line-through";
@@ -54,7 +51,6 @@ function addTask(): void {
     };
 
     tasks.push(task);
-
     renderTasks();
 
     input.value = "";
