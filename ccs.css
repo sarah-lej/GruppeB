@@ -117,3 +117,63 @@ h1 {
     }
 }
 
+/* Bereich zum Filtern der Aufgaben */
+.task-filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 24px 0 16px;
+    padding: 16px;
+    background-color: #f3f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+}
+
+/* Beschriftung des Filters */
+.task-filter label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #263247;
+}
+
+/* Auswahlmenü */
+#taskFilter {
+    min-width: 190px;
+    padding: 11px 36px 11px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    background-color: #ffffff;
+    color: #263247;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Wenn das Auswahlmenü ausgewählt wird */
+#taskFilter:focus {
+    outline: none;
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+/* Wenn man mit der Maus darüber fährt */
+#taskFilter:hover {
+    border-color: #4f46e5;
+}
+
+/* Darstellung auf dem Handy */
+@media (max-width: 600px) {
+    .task-filter {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    #taskFilter {
+        width: 100%;
+    }
+}
+
+
