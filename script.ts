@@ -55,10 +55,7 @@ function addTask(): void {
 
     tasks.push(task);
 
-    const li = document.createElement("li");
-    li.textContent = task.title;
-
-    list.appendChild(li);
+    renderTasks();
 
     input.value = "";
 }
