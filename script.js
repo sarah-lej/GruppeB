@@ -1,6 +1,6 @@
 var tasks = [];
-var input = document.querySelector("#newPost");
-var button = document.querySelector("#btnCreatePost");
+var input = document.querySelector("#newToDo");
+var button = document.querySelector("#btnCreateToDo");
 var list = document.querySelector("#taskList");
 function renderTasks() {
     list.innerHTML = "";

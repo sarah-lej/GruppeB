@@ -7,8 +7,8 @@ interface Task {
 const tasks: Task[] = [];
 <<<<<<< Updated upstream
 
-const input = document.querySelector<HTMLTextAreaElement>("#newPost")!;
-const button = document.querySelector<HTMLButtonElement>("#btnCreatePost")!;
+const input = document.querySelector<HTMLTextAreaElement>("#newToDo")!;
+const button = document.querySelector<HTMLButtonElement>("#btnCreateToDo")!;
 const list = document.querySelector<HTMLUListElement>("#taskList")!;
 
 =======
