@@ -161,6 +161,15 @@ function addTask(): void {
 
 button.addEventListener("click", addTask);
 
+// NEW: Press ENTER to add a To-Do
+input.addEventListener("keydown", (event: KeyboardEvent) => {
+    if (event.key === "Enter" && !event.isComposing) {
+        event.preventDefault();
+        addTask();
+    }
+});
+
+
 interface Category {
     id: number;
     name: string;

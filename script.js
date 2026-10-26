@@ -102,3 +102,11 @@ function addCategory() {
 categoryButton.addEventListener("click", addCategory);
 renderTasks();
 renderCategories();
+
+// Aufgabe durch ENTER hinzufügen
+input.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" && !event.isComposing) {
+        event.preventDefault();
+        addTask();
+    }
+});
