@@ -7,10 +7,6 @@ interface Task {
 const tasks: Task[] = [];
 //<<<<<<< Updated upstream
 
-const input = document.querySelector<HTMLTextAreaElement>("#newToDo")!;
-const button = document.querySelector<HTMLButtonElement>("#btnCreateToDo")!;
-const list = document.querySelector<HTMLUListElement>("#taskList")!;
-
 //=======
 const input = document.querySelector<HTMLInputElement>("#taskInput")!;
 const button = document.querySelector<HTMLButtonElement>("#addButton")!;
@@ -37,9 +33,6 @@ function renderTasks(): void {
             renderTasks();
         });
 
-        //<<<<<<< Updated upstream
-        const titleSpan = document.createElement("span");
-        titleSpan.textContent = task.title;
 
         //=======
         // Text-Container für den Titel
