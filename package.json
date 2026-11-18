@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "eslint script.ts",
     "format": "prettier --write script.ts",
-    "format:check": "prettier --check script.ts"
+    "format:check": "prettier --check script.ts",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
