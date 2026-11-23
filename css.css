@@ -1,0 +1,145 @@
+
+/* Grundeinstellungen */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 30px;
+    font-family: Arial, sans-serif;
+    background-color: #f4f6fb;
+    color: #263247;
+}
+
+/* Hauptbereich */
+.create-task-container {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Überschrift */
+.create-task-container h1 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 28px;
+    color: #1e293b;
+}
+
+.create-task-container p {
+    margin-bottom: 25px;
+    color: #64748b;
+    line-height: 1.5;
+}
+
+/* Formular */
+.task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* Beschriftungen */
+.task-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #334155;
+}
+
+/* Eingabefelder */
+.task-form input,
+.task-form select,
+.task-form textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #263247;
+    font-family: inherit;
+    font-size: 15px;
+}
+
+/* Textfeld für Beschreibung */
+.task-form textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* Fokus beim Anklicken */
+.task-form input:focus,
+.task-form select:focus,
+.task-form textarea:focus {
+    outline: none;
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+/* Buttons */
+.task-form button {
+    padding: 13px 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+/* Aufgabe erstellen */
+.btn-create {
+    background-color: #4f46e5;
+    color: #ffffff;
+}
+
+.btn-create:hover {
+    background-color: #4338ca;
+}
+
+/* Abbrechen */
+.btn-cancel {
+    background-color: #e2e8f0;
+    color: #334155;
+}
+
+.btn-cancel:hover {
+    background-color: #cbd5e1;
+}
+
+/* Buttons nebeneinander */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+/* Handyansicht */
+@media (max-width: 600px) {
+    body {
+        padding: 12px;
+    }
+
+    .create-task-container {
+        margin: 10px auto;
+        padding: 20px;
+    }
+
+    .create-task-container h1 {
+        font-size: 24px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .task-form button {
+        width: 100%;
+    }
+}
