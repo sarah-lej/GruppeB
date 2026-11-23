@@ -5,7 +5,7 @@ import {
     createTask,
     updateTaskTitle,
     toggleTask
-} from "./taskUtils";
+} from "../taskUtils";
 
 describe("Todo-Aufgaben testen", () => {
 
