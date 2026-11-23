@@ -6,7 +6,7 @@ interface Task {
 }
 
 type Priority = 'leicht' | 'mittel' | 'schwer';
-
+const testVariable = "Hallo";
 const PRIORITIES: Priority[] = ['leicht', 'mittel', 'schwer'];
 
 const PRIORITY_COLORS: Record<Priority, string> = {
